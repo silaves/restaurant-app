@@ -1,5 +1,5 @@
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import { useMessage } from 'naive-ui'
 import ProductService from "../services/ProductService";
 
@@ -11,7 +11,7 @@ export default defineComponent({
     const optionsRef = ref([])
     const selectedValue = ref(null)
 
-    async function handleSearch (word) {
+    async function handleSearch (word=null) {
       try {
         const response = await ProductService.getProducts(word)
         optionsRef.value = response.data.map(item => {
@@ -37,6 +37,9 @@ export default defineComponent({
       }
     }
 
+    onMounted(() => {
+      handleSearch()
+    })
     return {
       loading: loadingRef,
       options: optionsRef,

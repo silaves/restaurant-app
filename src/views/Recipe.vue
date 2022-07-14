@@ -272,7 +272,7 @@ export default defineComponent({
       }
     }
 
-    async function handleSearchParent (word) {
+    async function handleSearchParent (word=null) {
       try {
         const response = await ProductService.getProducts(word)
         parentOptions.value.options = response.data.map(item => {
@@ -285,7 +285,7 @@ export default defineComponent({
       }
     }
 
-    async function handleSearchDetail (word) {
+    async function handleSearchDetail (word=null) {
       try {
         const response = await ProductService.getProducts(word)
         detailsOptions.value.options = response.data.map(item => {
@@ -338,6 +338,8 @@ export default defineComponent({
     }
     onMounted(() => {
       getRecipes()
+      handleSearchParent()
+      handleSearchDetail()
     })
 
     return {

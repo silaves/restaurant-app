@@ -1,5 +1,5 @@
 <script>
-import { defineComponent, ref } from 'vue'
+import {defineComponent, onMounted, ref} from 'vue'
 import { useMessage } from 'naive-ui'
 import {AddCircleOutlineFilled, DeleteTwotone} from '@vicons/material'
 import ProductService from "../services/ProductService";
@@ -22,7 +22,7 @@ export default defineComponent({
     const optionsSelectRef = ref([])
     const selectedRecipes = ref([])
 
-    async function handleSearch (word) {
+    async function handleSearch (word=null) {
       try {
         const response = await ProductService.getRecipesFilter(word)
         optionsSelectRef.value = response.data.map(item => {
@@ -79,6 +79,9 @@ export default defineComponent({
       }
     }
 
+    onMounted(() => {
+      handleSearch()
+    })
     return {
       formRef,
       size: ref('medium'),
