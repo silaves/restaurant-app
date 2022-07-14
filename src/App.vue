@@ -1,7 +1,7 @@
 <template>
   <n-message-provider>
     <div class="app">
-      <Sidebar />
+      <Sidebar id="custom-sidebar" />
       <router-view />
     </div>
   </n-message-provider>
@@ -28,7 +28,6 @@ import Sidebar from './components/Sidebar.vue'
   --purple-red: #3C1874;
   --bright-red: #DE354C;
 
-  // paypal
   --green-light: #e1fffa;
   --green-dark: #6dd3b8;
   --yellow-light: #fdd045;

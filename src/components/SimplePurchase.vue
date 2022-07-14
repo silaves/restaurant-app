@@ -51,6 +51,9 @@ export default defineComponent({
 <template>
   <n-card x-gap="12" size="huge">
     <span class="c-card-title c-center">Plaza de Mercado</span>
+    <n-alert type="success">
+      Realiza la compra de un producto existente en Plaza Mercado
+    </n-alert>
     <template #footer>
       <div style="display:flex;justify-content: center;width: 100%">
         <div class="select-purchase">

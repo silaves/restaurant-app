@@ -75,7 +75,7 @@ export default defineComponent({
         message.success('Registrado')
       } catch (e) {
         if (e.response && e.response.status === 422) {
-          message.warning('El insumo no tiene stock disponible')
+          message.warning('Existen detalles de ordenes que no se procesaron')
         } else {
           message.error('Ops!, hubo un error')
         }

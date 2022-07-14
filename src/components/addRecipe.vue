@@ -54,14 +54,9 @@ const rules = {
 }
 
 export default defineComponent({
-  // props: ['showModalRef'],
   setup(props) {
     const formRef = ref(null)
     let { showModalRef } = toRefs(props);
-    // const showModal = props.showModal
-    // let { showModal: showModalRef } = toRefs(props)
-    // console.log(showModalRef)
-    // const showModalRef = ref(false)
     const message = useMessage();
     const showModal = ref(false)
     const formValue = ref({
@@ -72,7 +67,6 @@ export default defineComponent({
         () => showModalRef,
         (cars, prevCars) => {
           showModal.value = showModalRef.value
-          console.log("deep ", cars.value, prevCars.value);
         },
         { deep: true }
     );
@@ -83,12 +77,10 @@ export default defineComponent({
         if (!errors) {
           try {
             const response = ProductService.createProduct(formValue.value.name, formValue.value.code)
-            // getRecipes()
             message.success('Registrado')
           } catch (e) {
             message.error('Ops hubo un error')
           }
-          // showModalRef = false
         }
       })
     }
@@ -105,8 +97,6 @@ export default defineComponent({
     return {
       pagination: { pageSize: 10 },
       rules,
-      // showModal,
-      // showModalRef,
       formRef,
       formValue,
       handleSubmit,
@@ -119,11 +109,6 @@ export default defineComponent({
     RefreshFilled,
     AddCircleOutlineFilled,
   },
-  // watch: (
-  //     () => props.showModal,
-  //     (curr, prev) => {
-  //       showModalRef.value = props.showModal
-  //     }
-  // )
+
 })
 </script>

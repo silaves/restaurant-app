@@ -1,5 +1,9 @@
 <template>
   <main id="about-page">
+    <n-card style="margin-bottom: 16px">
+      <div style="width: 100%;text-align: left">
+        <span class="card-title">Bodega</span>
+      </div>
     <n-grid x-gap="12" :y-gap="12" cols="1 s:1 m:1 l:1 xl:1 2xl:1" responsive="screen">
       <n-gi>
         <n-space>
@@ -31,6 +35,7 @@
         />
       </n-gi>
     </n-grid>
+    </n-card>
   </main>
   <n-modal v-model:show="showModal" preset="dialog" title="Dialog" :on-after-leave=onHidden>
     <template #header>
@@ -80,6 +85,12 @@ const columns = [
     defaultSortOrder: 'ascend',
     sorter: 'default'
   },
+  {
+    title: 'Stock actual',
+    key: 'currentStock',
+    defaultSortOrder: 'ascend',
+    sorter: 'default'
+  },
 ]
 
 export default defineComponent({
@@ -115,10 +126,11 @@ export default defineComponent({
     async function getProducts() {
       loadingTable.value = true;
       try {
-        const response = await ProductService.getProducts()
+        const response = await ProductService.getProductsWithStock()
         dataProducts.value = response.data.map((v, i) => ({
           name: v.name,
           code: v.code,
+          currentStock: v.currentStock,
           key: v._id,
         }));
         loadingTable.value = false;

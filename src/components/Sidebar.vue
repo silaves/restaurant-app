@@ -1,7 +1,7 @@
 <template>
   <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
     <div class="logo">
-      <img :src="logoURL" alt="Vue" />
+      <img :src="doge" alt="Vue" />
     </div>
 
     <div class="menu-toggle-wrap">
@@ -12,41 +12,37 @@
 
     <h3>Módulos</h3>
     <div class="menu">
-      <router-link to="/request-order" class="button">
-        <span class="material-icons">home</span>
-        <span class="text">Solicitar Pedidos</span>
-      </router-link>
       <router-link to="/warehouse" class="button">
-        <span class="material-icons">description</span>
+        <span class="material-icons">store</span>
         <span class="text">Bodega</span>
       </router-link>
       <router-link to="/recipe" class="button">
-        <span class="material-icons">description</span>
+        <span class="material-icons">library_books</span>
         <span class="text">Receta</span>
       </router-link>
-      <router-link to="/team" class="button">
-        <span class="material-icons">group</span>
+      <router-link to="/purchases" class="button">
+        <span class="material-icons">storefront</span>
         <span class="text">Compras</span>
       </router-link>
+      <router-link to="/request-order" class="button">
+        <span class="material-icons">flag_circle</span>
+        <span class="text">Solicitar Pedidos</span>
+      </router-link>
       <router-link to="/orders" class="button">
-        <span class="material-icons">group</span>
+        <span class="material-icons">list_alt</span>
         <span class="text">Pedidos</span>
       </router-link>
       <router-link to="/order-history" class="button">
-        <span class="material-icons">email</span>
+        <span class="material-icons">manage_search</span>
         <span class="text">Historial de Pedidos</span>
-      </router-link>
-      <router-link to="/purchases" class="button">
-        <span class="material-icons">email</span>
-        <span class="text">Compras</span>
       </router-link>
     </div>
 
     <div class="flex"></div>
 
     <div class="menu">
-      <router-link to="/settings" class="button">
-        <span class="material-icons">settings</span>
+      <router-link to="/home" class="button">
+        <span class="material-icons">home</span>
         <span class="text">Inicio</span>
       </router-link>
     </div>
@@ -55,7 +51,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import logoURL from '../assets/logo.png'
+import doge from '../assets/logo.png'
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 const ToggleMenu = () => {
   is_expanded.value = !is_expanded.value

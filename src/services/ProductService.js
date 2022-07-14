@@ -9,8 +9,14 @@ export default {
       }
     })
   },
+  getProductsWithStock () {
+    return Api().get('/api/product/with-stock')
+  },
   getRecipes (query = null) {
     return Api().get('/api/recipe/')
+  },
+  getRecipe (recipeId) {
+    return Api().get(`/api/recipe/${recipeId}`)
   },
   getRecipesFilter (query = null) {
     return Api().get('/api/recipe/product-filter/',{
@@ -21,6 +27,11 @@ export default {
   },
   purchaseMarket (productId){
     return Api().post(`/api/purchase/farmers-market/product/${productId}`)
+  },
+  purchase (productId, qty){
+    return Api().post(`/api/purchase/product/${productId}`, {
+      qty: qty,
+    })
   },
   createProduct (name, code) {
     return Api().post('/api/product/create/',{

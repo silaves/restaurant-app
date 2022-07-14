@@ -22,18 +22,6 @@ import ProductService from '../services/ProductService'
 import SimpleOrder from "../components/SimpleOrder.vue"
 import CustomizeOrder from "../components/CustomizeOrder.vue";
 
-function createOptions () {
-  return Array.from({ length: 100 }).map((v, i) => ({
-    label: 'Option ' + i,
-    value: i,
-    disabled: i % 5 === 0
-  }))
-}
-
-function createValues () {
-  return Array.from({ length: 50 }).map((v, i) => i)
-}
-
 export default defineComponent({
   components: {
     SimpleOrder,
@@ -65,16 +53,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.light-green {
-  height: 108px;
-  background-color: rgba(0, 128, 0, 0.12);
-}
-.green {
-  height: 108px;
-  background-color: rgba(0, 128, 0, 0.24);
-}
-.card-spacing {
-  padding: 40px;
-}
 </style>
 

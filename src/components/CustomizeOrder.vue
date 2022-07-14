@@ -125,7 +125,7 @@ export default defineComponent({
 <template>
   <n-spin :show="showSpin">
     <n-card x-gap="12" size="huge">
-      <span class="c-card-title c-center">Simple</span>
+      <span class="c-card-title c-center">Elige las recetas</span>
       <n-form
           ref="formRef"
           inline

@@ -125,35 +125,70 @@
       <n-button type="primary" @click="handleSubmit">Registrar</n-button>
     </template>
   </n-modal>
+  <n-modal v-model:show="showDetailModalRef" preset="dialog" title="Dialog">
+    <template #header>
+      <div>Detalle</div>
+    </template>
+    <n-spin :show="loadingDetailRef">
+    <n-space vertical>
+      <n-table striped>
+        <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item, index) in selectedDetailRef">
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.qty }}</td>
+        </tr>
+        </tbody>
+      </n-table>
+    </n-space>
+    </n-spin>
+  </n-modal>
 </template>
 
 <script>
-import {defineComponent, onMounted, ref} from 'vue'
-import { useMessage } from 'naive-ui'
+import {defineComponent, h, onMounted, ref} from 'vue'
+import {NButton, useMessage} from 'naive-ui'
 import { Icon } from '@vicons/utils'
 import { RefreshFilled, AddCircleOutlineFilled, DeleteTwotone } from '@vicons/material'
 import ProductService from "../services/ProductService";
 
-const columns = [
-  {
-    title: 'Nombre',
-    key: 'name',
-    defaultSortOrder: 'ascend',
-    sorter: 'default'
-  },
-  {
-    title: 'Código',
-    key: 'code',
-    defaultSortOrder: 'ascend',
-    sorter: 'default'
-  },
-  {
-    title: 'Detalle',
-    key: 'detail',
-    defaultSortOrder: 'ascend',
-    sorter: 'default'
-  },
-]
+const createColumns = ({showDetail}) => {
+  return [
+    {
+      title: 'Nombre',
+      key: 'name',
+      defaultSortOrder: 'ascend',
+      sorter: 'default'
+    },
+    {
+      title: 'Código',
+      key: 'code',
+      defaultSortOrder: 'ascend',
+      sorter: 'default'
+    },
+    {
+      title: 'Detalle',
+      key: 'details',
+      render (row) {
+        return h(
+            NButton,
+            {
+              size: 'small',
+              onClick: () => showDetail(row)
+            },
+            {
+              default: () => 'Ver detalle'
+            }
+        )
+      }
+    },
+  ]
+}
 
 const rules = {
   productParent: {
@@ -186,7 +221,10 @@ export default defineComponent({
     const message = useMessage();
     const loadingTable = ref(false)
     const dataRecipes = ref([])
-    const selectedDetails = ref([]);
+    const selectedDetails = ref([])
+    const showDetailModalRef = ref(false)
+    const selectedDetailRef = ref([])
+    const loadingDetailRef = ref(false)
     const parentOptions = ref({
       loadingTable: false,
       options: [],
@@ -296,13 +334,27 @@ export default defineComponent({
       selectedDetails.value = []
     }
 
+    function showDetail(data) {
+    }
     onMounted(() => {
       getRecipes()
     })
 
     return {
       pagination: { pageSize: 10 },
-      columns,
+      columns: createColumns({
+        async showDetail (data) {
+          loadingDetailRef.value = true
+          try {
+            showDetailModalRef.value = true
+            const response = await ProductService.getRecipe(data.key)
+            selectedDetailRef.value = response.data.details
+          } catch (e) {
+            message.error('Ops hubo un error')
+          }
+          loadingDetailRef.value = false
+        }
+      }),
       rules,
       tableRef,
       dataRecipes,
@@ -313,6 +365,9 @@ export default defineComponent({
       parentOptions,
       selectedDetails,
       detailsOptions,
+      showDetailModalRef,
+      selectedDetailRef,
+      loadingDetailRef,
       handleSubmit,
       getRecipes,
       onHidden,
@@ -320,6 +375,7 @@ export default defineComponent({
       handleSearchDetail,
       handleAddDetail,
       deleteDetail,
+      showDetail
     }
   },
   components: {

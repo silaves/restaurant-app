@@ -9,19 +9,7 @@
           <SimplePurchase/>
         </n-tab-pane>
         <n-tab-pane name="tu eliges" tab="Tu eliges">
-          <n-card size="huge" class="t-center">
-            <span class="card-title">Tu eliges</span>
-            <template #footer>
-              <div style="display:flex;justify-content: center;">
-                <n-transfer source-title="Disponibles" target-title="Seleccionadas" size="small" ref="transfer" v-model:value="value" :options="options" />
-              </div>
-            </template>
-            <template #action>
-              <n-button type="info" size="large" @click="createOrder">
-                Solicitar pedido
-              </n-button>
-            </template>
-          </n-card>
+          <CustomizePurchase/>
         </n-tab-pane>
       </n-tabs>
     </n-card>
@@ -32,6 +20,7 @@
 import { defineComponent, ref } from 'vue'
 import ProductService from '../services/ProductService'
 import SimplePurchase from "../components/SimplePurchase.vue";
+import CustomizePurchase from "../components/CustomizePurchase.vue";
 
 function createOptions () {
   return Array.from({ length: 100 }).map((v, i) => ({
@@ -46,7 +35,7 @@ function createValues () {
 }
 
 export default defineComponent({
-  components: {SimplePurchase},
+  components: {CustomizePurchase, SimplePurchase},
   data() {
     return {
       options: [],
@@ -54,12 +43,6 @@ export default defineComponent({
     }
   },
   methods: {
-    createSimpleOrder() {
-      console.log('orden simple')
-    },
-    createOrder() {
-      console.log('orden customizable')
-    },
     async loadRecipes() {
       try {
         const response = await ProductService.getRecipes()
@@ -79,16 +62,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.light-green {
-  height: 108px;
-  background-color: rgba(0, 128, 0, 0.12);
-}
-.green {
-  height: 108px;
-  background-color: rgba(0, 128, 0, 0.24);
-}
-.card-spacing {
-  padding: 40px;
-}
+
 </style>
 

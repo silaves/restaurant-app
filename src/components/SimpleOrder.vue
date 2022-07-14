@@ -62,6 +62,9 @@ export default defineComponent({
   <n-spin :show="showSpin">
   <n-card x-gap="12" size="huge">
       <span class="c-card-title c-center">Simple</span>
+      <n-alert type="success">
+        Realiza un pedido de una receta aleatoria
+      </n-alert>
     <template #footer>
       <n-form
           ref="formRef"
