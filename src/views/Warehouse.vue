@@ -107,14 +107,14 @@ export default defineComponent({
       code: ''
     })
 
-    function handleSubmit (e) {
+    async function handleSubmit (e) {
       e.preventDefault()
-      formRef.value?.validate((errors) => {
+      formRef.value?.validate( async (errors) => {
         if (!errors) {
           try {
-            const response = ProductService.createProduct(formValue.value.name, formValue.value.code)
-            getProducts()
+            const response = await ProductService.createProduct(formValue.value.name, formValue.value.code)
             message.success('Registrado')
+            await getProducts()
           } catch (e) {
             message.error('Ops hubo un error')
           }
