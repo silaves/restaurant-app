@@ -41,7 +41,7 @@
     <div class="flex"></div>
 
     <div class="menu">
-      <router-link to="/home" class="button">
+      <router-link to="/" class="button">
         <span class="material-icons">home</span>
         <span class="text">Inicio</span>
       </router-link>

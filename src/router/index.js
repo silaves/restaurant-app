@@ -35,7 +35,7 @@ const router = createRouter({
       component: OrderHistory,
     },
     {
-      path: '/home',
+      path: '/',
       component: Home,
     },
   ],
